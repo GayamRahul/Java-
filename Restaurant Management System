@@ -1,0 +1,116 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Food {
+    int id;
+    String name;
+    double price;
+
+    Food(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    void display() {
+        System.out.println("Food ID: " + id);
+        System.out.println("Food Name: " + name);
+        System.out.println("Price: " + price);
+        System.out.println();
+    }
+}
+
+public class Main {
+    static ArrayList<Food> menu = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
+
+    static void addFood() {
+        System.out.print("Enter Food ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Food Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Price: ");
+        double price = sc.nextDouble();
+
+        menu.add(new Food(id, name, price));
+        System.out.println("Food item added successfully.\n");
+    }
+
+    static void viewMenu() {
+        if (menu.isEmpty()) {
+            System.out.println("Menu is empty.\n");
+            return;
+        }
+
+        for (Food f : menu) {
+            f.display();
+        }
+    }
+
+    static void searchFood() {
+        System.out.print("Enter Food ID to search: ");
+        int id = sc.nextInt();
+
+        for (Food f : menu) {
+            if (f.id == id) {
+                f.display();
+                return;
+            }
+        }
+
+        System.out.println("Food item not found.\n");
+    }
+
+    static void orderFood() {
+        System.out.print("Enter Food ID to order: ");
+        int id = sc.nextInt();
+
+        for (Food f : menu) {
+            if (f.id == id) {
+                System.out.println("Ordered: " + f.name);
+                System.out.println("Price to pay: " + f.price + "\n");
+                return;
+            }
+        }
+
+        System.out.println("Food item not found.\n");
+    }
+
+    public static void main(String[] args) {
+        int choice;
+
+        do {
+            System.out.println("===== Restaurant Management System =====");
+            System.out.println("1. Add Food Item");
+            System.out.println("2. View Menu");
+            System.out.println("3. Search Food Item");
+            System.out.println("4. Order Food");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    addFood();
+                    break;
+                case 2:
+                    viewMenu();
+                    break;
+                case 3:
+                    searchFood();
+                    break;
+                case 4:
+                    orderFood();
+                    break;
+                case 5:
+                    System.out.println("Exiting program.");
+                    break;
+                default:
+                    System.out.println("Invalid choice.\n");
+            }
+        } while (choice != 5);
+    }
+}
